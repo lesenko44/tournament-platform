@@ -1,0 +1,3589 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle at top center, #0a2540 0%, #030a16 50%, #010408 100%);
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* --- Навігація --- */
+.custom-navbar {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0;
+}
+
+.navbar-nav .nav-link {
+    color: #b0b8c1;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover { color: #ffffff; }
+.navbar-nav .nav-link.active {
+    color: #ffffff;
+    border-bottom: 3px solid #0066cc;
+}
+
+/* Кнопка "Вхід" */
+.btn-login {
+    background: linear-gradient(180deg, #286090 0%, #153b5e 100%);
+    color: white;
+    border: 1px solid #1a4a75;
+    font-weight: 600;
+    padding: 8px 24px;
+}
+.btn-login:hover { color: white; background: #1c4d7a; }
+
+/* --- Головна секція (Hero) --- */
+.hero-section {
+    min-height: 70vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 40px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero-title .highlight { color: #fca311; }
+.hero-subtitle { font-size: 1.1rem; color: #d1d5db; margin-bottom: 40px; }
+
+/* Кнопки головного екрана */
+.hero-buttons .btn {
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+.hero-buttons .btn:hover { transform: translateY(-2px); color: white; }
+
+.btn-orange {
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    color: white; border: 1px solid #c2410c;
+}
+.btn-blue {
+    background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+    color: white; border: 1px solid #1e3a8a;
+}
+
+
+.btn-outline-watch {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    border: 2px solid #64748b;
+    backdrop-filter: blur(5px); 
+}
+.btn-outline-watch:hover {
+    background: #64748b;
+    border-color: #64748b;
+}
+
+.section-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 40px 20px;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+.feature-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.06); }
+
+.feature-icon {
+    font-size: 3rem;
+    color: #3b82f6;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.feature-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+.feature-card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+
+.tournament-mock-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: left;
+}
+.tournament-mock-card h4 { margin-top: 10px; font-weight: 700; }
+
+.tournament-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: left;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+}
+.tournament-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+.tournament-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ff6b6b;
+    transform: scale(1.15);
+}
+.player-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+    padding: 0.35rem 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+}
+.player-entry span {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+}
+.btn-remove-player {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+.btn-remove-player:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ff6b6b;
+    transform: scale(1.1);
+}
+.tournament-card h4 {
+    margin-top: 10px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.tournament-card p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 8px 0;
+}
+.tournament-date {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+}
+.tournament-desc {
+    font-size: 0.85rem !important;
+    margin-top: 10px !important;
+}
+
+
+.modal-content {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    color: white;
+    font-weight: 700;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-tabs .nav-link {
+    color: #b0b8c1;
+    background: none;
+    border: none;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+    color: #3b82f6;
+    background: none;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #ffffff;
+}
+
+.form-label {
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+    caret-color: white;
+}
+
+.form-control[readonly] {
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 1;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #3b82f6;
+    color: white;
+    caret-color: white;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+textarea.form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+    caret-color: white;
+    min-height: 100px;
+    resize: vertical;
+    padding: 0.75rem;
+}
+
+textarea.form-control:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #3b82f6;
+    color: white;
+    caret-color: white;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.form-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    caret-color: white;
+}
+
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.watch-stage-card {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.watch-stage-card h4,
+.watch-stage-card h5 {
+    color: #ffffff;
+}
+
+.watch-selection.card {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+#watch-section {
+    background: rgba(4, 10, 21, 0.95);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#watchContent {
+    margin-top: 20px;
+}
+
+.match-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+}
+
+.match-row:last-child {
+    border-bottom: none;
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.standings-table th,
+.standings-table td {
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+}
+
+.standings-table th {
+    background: rgba(255, 255, 255, 0.04);
+    text-align: left;
+}
+
+.standings-table tbody tr:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-watch-small {
+    background: #2563eb;
+    border: 1px solid #1e40af;
+    color: white;
+    margin-top: 12px;
+}
+
+.btn-watch-small:hover {
+    background: #1d4ed8;
+}
+
+.btn-blue {
+    background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    border: 1px solid #1e3a8a;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-blue:hover {
+    background: #1d4ed8;
+}
+
+.btn-outline-watch {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    border: 2px solid #64748b;
+    backdrop-filter: blur(5px);
+}
+
+.btn-outline-watch:hover {
+    background: #64748b;
+    border-color: #64748b;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary {
+    background: #2a7bff;
+    color: white;
+    border: 1px solid #1e5fb8;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+    border: 1px solid #1e3a8a;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #1e3a8a;
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(180deg, #059669 0%, #047857 100%);
+    border: 1px solid #065f46;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-success:hover {
+    background: #065f46;
+    border-color: #065f46;
+    color: white;
+}
+
+/* --- Кнопки + и - в формах --- */
+.input-group .btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+
+.input-group .btn-outline-secondary:hover {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+/* Custom Dialog Styles */
+.custom-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.custom-dialog {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    min-width: 350px;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+}
+
+.dialog-header {
+    background: #0f0f0f;
+    color: #b0b0b0;
+    padding: 16px 20px;
+    border-bottom: 1px solid #333;
+    font-size: 0.9rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.dialog-body {
+    color: #e8e8e8;
+    padding: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.dialog-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 16px 20px;
+    border-top: 1px solid #333;
+    background: #0f0f0f;
+    border-radius: 0 0 8px 8px;
+}
+
+.btn-dialog-primary {
+    background: #2a7bff;
+    color: white;
+    border: 1px solid #1e5fb8;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-primary:hover {
+    background: #3a8bff;
+    border-color: #2e6fd8;
+}
+
+.btn-dialog-secondary {
+    background: #333;
+    color: #e8e8e8;
+    border: 1px solid #555;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-dialog-secondary:hover {
+    background: #444;
+    border-color: #666;
+}
+/* --- TEXTAREA FIX --- */
+textarea.form-control {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    caret-color: white !important;
+    min-height: 100px !important;
+    resize: vertical !important;
+    padding: 0.75rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+textarea.form-control:focus {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #3b82f6 !important;
+    color: white !important;
+    caret-color: white !important;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important;
+}
+
+/* --- ����� (MATCHES) --- */
+.match-card {
+    background: rgba(60, 95, 180, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    color: white;
+    animation: slideIn 0.4s ease-out;
+}
+
+.match-card:hover {
+    background: rgba(60, 95, 180, 0.25);
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+}
+
+.match-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+    gap: 20px;
+}
+
+.match-score {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fca311;
+    text-align: center;
+}
+
+.btn-update-score {
+    background: #fca311;
+    color: #0f172a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-update-score:hover {
+    background: #f59e0b;
+    transform: scale(1.05);
+}
+
+.btn-update-score:disabled {
+    background: #6b7280;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платформа Турнірів</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#" data-section="tournaments">Турніри</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-section="teams">Команди</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-section="evaluation">Оцінювання</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-section="results">Результати</a></li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">Вхід / Реєстрація</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section" id="hero-section">
+        <div class="container">
+            <h1 class="hero-title">
+                Організуй, Спостерігай, <span class="highlight">Перемагай!</span>
+            </h1>
+            <p class="hero-subtitle">Платформа для проведення турнірів та оцінювання результатів у реальному часі</p>
+            
+            <div class="hero-buttons d-flex justify-content-center flex-wrap gap-3 mt-4">
+                <button class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#createTournamentModal">Створити Турнір</button>
+                <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#joinTeamModal">Приєднатися до Команди</button>
+                <a href="#" class="btn btn-outline-watch" data-section="watch"><i class="bi bi-play-circle me-2"></i>Спостерігати</a>
+            </div>
+        </div>
+    </section>
+
+<section class="features-section py-5" id="features-section">
+        <div class="container mt-5">
+            
+            <div class="text-center mb-5">
+                <h2 class="section-title">Твій арсенал для організації змагань</h2>
+                <p>Ознайомтеся з головними можливостями нашої платформи</p>
+            </div>
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-trophy feature-icon"></i>
+                        <h3>Гнучкі сітки</h3>
+                        <p>Створюйте турнірні сітки будь-якої складності: Single Elimination, Double Elimination або Round Robin.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-bar-chart-line feature-icon"></i>
+                        <h3>Live Статистика</h3>
+                        <p>Відстежуйте результати команд та гравців у реальному часі завдяки зручному API інтеграції.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-people feature-icon"></i>
+                        <h3>Пошук команд</h3>
+                        <p>Немає з ким грати? Використовуйте нашу систему матчмейкінгу для пошуку ідеальної команди.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 mb-5 d-none" id="tournaments-section">
+        <div class="container">
+            <h2 class="section-title mb-4 text-center">Турніри</h2>
+            <div class="row g-4"></div>
+        </div>
+    </section>
+
+    <section class="py-5 mb-5 d-none" id="teams-section">
+        <div class="container">
+            <h2 class="section-title mb-4 text-center">Команди</h2>
+            <div id="teamsPlaceholder" class="text-center mb-4">Зараз команд нема</div>
+            <div id="teamsContainer" class="row g-4"></div>
+        </div>
+    </section>
+
+    <section class="py-5 mb-5 d-none" id="evaluation-section">
+        <div class="container">
+            <h2 class="section-title mb-4 text-center">Оцінювання</h2>
+            <div id="evaluationContainer"></div>
+        </div>
+    </section>
+
+    <section class="py-5 mb-5 d-none" id="results-section">
+        <div class="container">
+            <h2 class="section-title mb-4 text-center">Результати</h2>
+            <div id="resultsContainer"></div>
+        </div>
+    </section>
+
+    <section class="py-5 mb-5 d-none" id="watch-section">
+        <div class="container">
+            <h2 class="section-title mb-4 text-center">Спостерігати</h2>
+            <div class="row g-4">
+                <div class="col-md-8">
+                    <h4 class="mb-3">🔴 ЛАЙВ МАТЧІ</h4>
+                    <div id="matchesContainer"></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="watch-selection card mb-4 p-4">
+                        <h3 class="h5 mb-3">Оберіть турнір для перегляду</h3>
+                        <form id="watchSelectForm" class="row g-3 align-items-end">
+                            <div class="col-12">
+                                <label class="form-label" for="watchTournamentSelect">Турнір</label>
+                                <select id="watchTournamentSelect" class="form-select"></select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-blue w-100">Переглянути сітку</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="watchContent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Вхід / Реєстрація</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="loginTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Вхід</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Реєстрація</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="loginTabsContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="loginEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Пароль</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Увійти</button>
+                            </form>
+                            <hr class="my-3">
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form id="registerForm">
+                                <div class="mb-3">
+                                    <label for="registerName" class="form-label">Ім'я</label>
+                                    <input type="text" class="form-control" id="registerName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Пароль</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerConfirmPassword" class="form-label">Підтвердити пароль</label>
+                                    <input type="password" class="form-control" id="registerConfirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Зареєструватися</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createTournamentModal" tabindex="-1" aria-labelledby="createTournamentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTournamentModalLabel">Створити Турнір</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createTournamentForm">
+                        <div class="mb-3">
+                            <label for="tournamentName" class="form-label">Назва турніру</label>
+                            <input type="text" class="form-control" id="tournamentName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numTeams" class="form-label">Кількість команд</label>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" id="decreaseTeams">-</button>
+                                <input type="number" class="form-control text-center" id="numTeams" min="2" value="2" required>
+                                <button class="btn btn-outline-secondary" type="button" id="increaseTeams">+</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="playersPerTeam" class="form-label">Гравців на команду</label>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" id="decreasePlayers">-</button>
+                                <input type="number" class="form-control text-center" id="playersPerTeam" min="1" value="1" required>
+                                <button class="btn btn-outline-secondary" type="button" id="increasePlayers">+</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tournamentDate" class="form-label">Дата та час початку</label>
+                            <input type="datetime-local" class="form-control" id="tournamentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tournamentDescription" class="form-label">Опис</label>
+                            <textarea class="form-control" id="tournamentDescription" rows="3"></textarea>
+                        </div>
+                        <div class="alert alert-warning d-none" id="createTournamentAuthAlert" role="alert">
+                            Спочатку увійдіть в систему, щоб створити турнір.
+                        </div>
+                        <button type="submit" class="btn btn-orange" id="createTournamentSubmit">Створити</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="joinTeamModal" tabindex="-1" aria-labelledby="joinTeamModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joinTeamModalLabel">Приєднатися до Команди</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="joinTeamForm">
+                        <div class="alert alert-danger d-none" id="joinTeamError" role="alert"></div>
+                        <div class="mb-3">
+                            <label for="joinTournamentSelect" class="form-label">Турнір</label>
+                            <select id="joinTournamentSelect" class="form-select">
+                                <option value="" selected disabled>Оберіть турнір для приєднання</option>
+                            </select>
+                            <div id="joinTournamentHelp" class="form-text text-white-50">Оберіть турнір зі списку нижче, код буде заповнений автоматично.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tournamentCode" class="form-label">Код турніру</label>
+                            <input type="text" class="form-control" id="tournamentCode" placeholder="Наприклад A1B2C3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teamName" class="form-label">Назва команди</label>
+                            <input type="text" class="form-control" id="teamName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teamPlayers" class="form-label">Імена гравців</label>
+                            <textarea class="form-control" id="teamPlayers" rows="3" placeholder="Олена, Дмитро, Сергій" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-blue">Приєднатися</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-4 border-top border-secondary">
+    <p class="mb-0">© 2026 Платформа Турнірів. Всі права захищено.</p>
+    </footer>
+
+    <!-- Modal for Updating Match Score -->
+    <div class="modal fade" id="updateScoreModal" tabindex="-1" aria-labelledby="updateScoreModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateScoreModalLabel">Змінити рахунок</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateScoreForm">
+                        <div class="mb-3">
+                            <label class="form-label" id="matchTeamsLabel"></label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="form-label" id="team1Label"></label>
+                                <input type="number" class="form-control text-center" id="score1Input" min="0" required>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end justify-content-center">
+                                <span style="font-size: 1.5rem; font-weight: 700;">:</span>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label" id="team2Label"></label>
+                                <input type="number" class="form-control text-center" id="score2Input" min="0" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label class="form-label" for="matchStatusSelect">Статус матчу</label>
+                            <select id="matchStatusSelect" class="form-select">
+                                <option value="planned">⏳ Очікується</option>
+                                <option value="live">🔴 LIVE</option>
+                                <option value="finished">✅ Завершено</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="matchIdInput">
+                        <button type="submit" class="btn btn-orange w-100 mt-3">Оновити матч</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Dialog -->
+    <div id="customAlert" class="custom-dialog-overlay d-none" role="dialog" aria-hidden="true">
+        <div class="custom-dialog">
+            <div class="dialog-header">Повідомлення</div>
+            <div class="dialog-body">
+                <p id="alertMessage"></p>
+            </div>
+            <div class="dialog-footer">
+                <button type="button" class="btn-dialog-primary" id="alertCloseBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Dialog -->
+    <div id="customConfirm" class="custom-dialog-overlay d-none" role="dialog" aria-hidden="true">
+        <div class="custom-dialog">
+            <div class="dialog-header">Підтвердження</div>
+            <div class="dialog-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="dialog-footer">
+                <button type="button" class="btn-dialog-secondary" id="confirmCancelBtn">Скасувати</button>
+                <button type="button" class="btn-dialog-primary" id="confirmOkBtn">Так</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
