@@ -332,9 +332,13 @@ function populateWatchSelect() {
     select.selectedIndex = 0;
 }
 
-async function loadMatches() {
+async function loadMatches(tournamentId = null) {
     try {
-        const response = await fetch('/api/matches');
+        let url = '/api/matches';
+        if (tournamentId) {
+            url += `?tournamentId=${tournamentId}`;
+        }
+        const response = await fetch(url);
         matches = await response.json();
         renderMatches();
         renderResults();
@@ -474,18 +478,12 @@ function renderMatches() {
 
     container.innerHTML = '';
 
-    // Фільтруємо матчи за вибраним турніром
-    const selectedTournamentId = document.getElementById('watchTournamentSelect')?.value;
-    const filteredMatches = selectedTournamentId 
-        ? matches.filter(m => m.tournamentId === parseInt(selectedTournamentId))
-        : matches;
-
-    if (filteredMatches.length === 0) {
+    if (matches.length === 0) {
         container.innerHTML = '<div class="alert alert-info">Матчів ще нема для цього турніру</div>';
         return;
     }
 
-    filteredMatches.forEach(match => {
+    matches.forEach(match => {
         const display = getMatchDisplayNames(match);
         const matchDiv = document.createElement('div');
         matchDiv.className = 'match-card';
@@ -773,6 +771,7 @@ if (loginForm) {
                 setToken(data.token);
                 currentUser = data.user;
                 updateAuthUI();
+                loadTeams();
                 closeModal('loginModal');
                 this.reset();
                 await customAlert(`Вхід успішний, ${data.user.username}!`);
@@ -811,6 +810,7 @@ if (registerForm) {
                 setToken(data.token);
                 currentUser = data.user;
                 updateAuthUI();
+                loadTeams();
                 closeModal('loginModal');
                 this.reset();
                 await customAlert(`Реєстрація успішна, ${data.user.username}!`);
@@ -845,11 +845,12 @@ function updateAuthUI() {
         loginBtn.removeAttribute('data-bs-target');
         
         // Встановлюємо обробник логіку
-        loginBtn.onclick = (e) => {
+        loginBtn.onclick = async (e) => {
             e.preventDefault();
             clearToken();
             updateAuthUI();
-            customAlert('Ви вийшли з системи');
+            loadTeams();
+            await customAlert('Ви вийшли з системи');
         };
     } else {
         loginBtn.textContent = 'Вхід / Реєстрація';
@@ -1214,9 +1215,10 @@ if (watchButton) {
 
         // Одразу завантажуємо матчи та таблицю для першого турніру
         if (tournaments.length > 0) {
-            document.getElementById('watchTournamentSelect').value = tournaments[0].id;
-            renderMatches();
-            await renderWatchContent(tournaments[0]);
+            const firstTournament = tournaments[0];
+            document.getElementById('watchTournamentSelect').value = firstTournament.id;
+            await loadMatches(firstTournament.id);
+            await renderWatchContent(firstTournament);
         }
     });
 }
@@ -1231,7 +1233,7 @@ if (watchSelectForm) {
             return;
         }
         // Оновлюємо матчи для цього турніру та таблицю
-        renderMatches();
+        await loadMatches(selectedId);
         await renderWatchContent(tournament);
     });
 }

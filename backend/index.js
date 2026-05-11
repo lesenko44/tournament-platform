@@ -27,6 +27,10 @@ db.exec(initSql, (err) => {
 // Middleware
 app.use(express.json());
 
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end();
+});
+
 // Middleware для перевірки JWT
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -331,12 +335,18 @@ app.get('/api/teams', (req, res) => {
 });
 
 app.post('/api/teams', (req, res) => {
-    const { tournamentCode, name, players } = req.body;
+    const tournamentCode = String(req.body.tournamentCode || '').trim();
+    const name = String(req.body.name || '').trim();
+    let players = req.body.players;
 
-    if (!tournamentCode || typeof tournamentCode !== 'string') {
+    if (typeof players === 'string') {
+        players = players.split(',').map(name => name.trim()).filter(Boolean);
+    }
+
+    if (!tournamentCode) {
         return res.status(400).json({ error: 'Потрібен дійсний код турніру.' });
     }
-    if (!name || typeof name !== 'string') {
+    if (!name) {
         return res.status(400).json({ error: 'Потрібна назва команди.' });
     }
     if (!Array.isArray(players) || players.length === 0) {
@@ -354,7 +364,7 @@ app.post('/api/teams', (req, res) => {
         return res.status(400).json({ error: 'Імена гравців не повинні повторюватися.' });
     }
 
-    db.get('SELECT * FROM tournaments WHERE code = ?', [tournamentCode], (err, tournament) => {
+    db.get('SELECT * FROM tournaments WHERE UPPER(code) = UPPER(?)', [tournamentCode], (err, tournament) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
         if (!tournament) return res.status(404).json({ error: 'Турнір з таким кодом не знайдено.' });
 
@@ -490,9 +500,21 @@ app.delete('/api/teams/:id/player', authenticateToken, requireAdmin, (req, res) 
 // Ендпоінти для матчів
 
 app.get('/api/matches', (req, res) => {
-    db.all('SELECT * FROM matches ORDER BY id DESC', [], (err, rows) => {
+    const tournamentId = req.query.tournamentId ? parseInt(req.query.tournamentId, 10) : null;
+
+    let query = 'SELECT id, team1, team2, score1, score2, status, organizer_id, tournament_id as tournamentId, round, created_at FROM matches';
+    let params = [];
+
+    if (tournamentId) {
+        query += ' WHERE tournament_id = ?';
+        params.push(tournamentId);
+    }
+
+    query += ' ORDER BY id DESC';
+
+    db.all(query, params, (err, rows) => {
         if (err) return res.status(500).json({ error: 'Помилка отримання матчів' });
-        res.json(rows);
+        res.json(rows || []);
     });
 });
 
