@@ -248,25 +248,18 @@
                     <form id="joinTeamForm">
                         <div class="alert alert-danger d-none" id="joinTeamError" role="alert"></div>
                         <div class="mb-3">
-                            <label for="joinTournamentSelect" class="form-label">Турнір</label>
-                            <select id="joinTournamentSelect" class="form-select">
-                                <option value="" selected disabled>Оберіть турнір для приєднання</option>
+                            <label for="availableTeamsSelect" class="form-label">Виберіть команду з вільними місцями</label>
+                            <select id="availableTeamsSelect" class="form-select" required>
+                                <option value="" selected disabled>Завантаження команд...</option>
                             </select>
-                            <div id="joinTournamentHelp" class="form-text text-white-50">Оберіть турнір зі списку нижче, код буде заповнений автоматично.</div>
+                            <div class="form-text text-white-50">Показуються тільки команди з вільними місцями</div>
                         </div>
                         <div class="mb-3">
-                            <label for="tournamentCode" class="form-label">Код турніру</label>
-                            <input type="text" class="form-control" id="tournamentCode" placeholder="Наприклад A1B2C3" required>
+                            <label for="joinPlayerNames" class="form-label">Імена нових гравців</label>
+                            <textarea class="form-control" id="joinPlayerNames" rows="3" placeholder="Введіть імена гравців через кому" required></textarea>
+                            <div class="form-text text-white-50">Введіть стільки гравців, скільки вільних місць у команді</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="teamName" class="form-label">Назва команди</label>
-                            <input type="text" class="form-control" id="teamName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="teamPlayers" class="form-label">Імена гравців</label>
-                            <textarea class="form-control" id="teamPlayers" rows="3" placeholder="Олена, Дмитро, Сергій" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-blue">Приєднатися</button>
+                        <button type="submit" class="btn btn-blue">Приєднатися до команди</button>
                     </form>
                 </div>
             </div>

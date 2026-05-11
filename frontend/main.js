@@ -740,6 +740,40 @@ async function renderWatchContent(tournament) {
     watchContent.innerHTML = html;
 }
 
+async function populateAvailableTeams() {
+    const select = document.getElementById('availableTeamsSelect');
+    if (!select) return;
+
+    const tournamentsRes = await fetch('/api/tournaments').catch(() => null);
+    const tournamentsData = tournamentsRes && tournamentsRes.ok ? await tournamentsRes.json() : [];
+
+    const availableTeams = teams.filter(team => {
+        const tournament = tournamentsData.find(t => t.id === team.tournamentId);
+        if (!tournament) return false;
+        const maxPlayers = parseInt(tournament.players, 10) || 1;
+        return team.players.length < maxPlayers;
+    });
+
+    if (availableTeams.length === 0) {
+        select.innerHTML = '<option value="" disabled>Немає команд з вільними місцями</option>';
+        return;
+    }
+
+    select.innerHTML = availableTeams
+        .map(team => {
+            const tournament = tournamentsData.find(t => t.id === team.tournamentId);
+            const maxPlayers = parseInt(tournament?.players, 10) || 1;
+            const freeSpots = maxPlayers - team.players.length;
+            return `<option value="${team.id}" data-free-spots="${freeSpots}">📋 ${team.name} (${team.players.length}/${maxPlayers}) - ${freeSpots} вільних місць</option>`;
+        })
+        .join('');
+}
+
+const joinTeamModalEl = document.getElementById('joinTeamModal');
+if (joinTeamModalEl) {
+    joinTeamModalEl.addEventListener('show.bs.modal', populateAvailableTeams);
+}
+
 function showJoinTeamError(message) {
     const errorDiv = document.getElementById('joinTeamError');
     errorDiv.textContent = message;
@@ -1086,75 +1120,80 @@ document.getElementById('createTournamentForm').addEventListener('submit', async
 });
 
 
+async function populateAvailableTeams() {
+    const select = document.getElementById('availableTeamsSelect');
+    if (!select) return;
+
+    const tournaments = await fetch('/api/tournaments').then(r => r.json()).catch(() => []);
+
+    const availableTeams = teams.filter(team => {
+        const tournament = tournaments.find(t => t.id === team.tournamentId);
+        if (!tournament) return false;
+        const maxPlayers = parseInt(tournament.players, 10) || 1;
+        return team.players.length < maxPlayers;
+    });
+
+    if (availableTeams.length === 0) {
+        select.innerHTML = '<option value="" disabled>Немає команд з вільними місцями</option>';
+        return;
+    }
+
+    select.innerHTML = availableTeams
+        .map(team => {
+            const tournament = tournaments.find(t => t.id === team.tournamentId);
+            const maxPlayers = parseInt(tournament?.players, 10) || 1;
+            const freeSpots = maxPlayers - team.players.length;
+            return `<option value="${team.id}" data-free-spots="${freeSpots}">📍 ${team.name} (${team.players.length}/${maxPlayers}) - ${freeSpots} вільних місць</option>`;
+        })
+        .join('');
+}
+
 document.getElementById('joinTeamForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     hideJoinTeamError();
 
-    const code = document.getElementById('tournamentCode').value.trim();
-    const teamName = document.getElementById('teamName').value.trim();
-    const playersText = document.getElementById('teamPlayers').value.trim();
+    const teamId = parseInt(document.getElementById('availableTeamsSelect').value, 10);
+    const playersText = document.getElementById('joinPlayerNames').value.trim();
     const players = playersText.split(',').map(name => name.trim()).filter(Boolean);
-    const normalizedPlayers = players.map(name => name.toLowerCase());
 
-    if (!code) {
-        showJoinTeamError('Будь ласка, введіть код турніру.');
-        return;
-    }
-
-    if (!teamName) {
-        showJoinTeamError('Будь ласка, введіть назву команди.');
+    if (!teamId) {
+        showJoinTeamError('Будь ласка, виберіть команду.');
         return;
     }
 
     if (players.length === 0) {
-        showJoinTeamError('Будь ласка, введіть імена хоча б одного гравця.');
+        showJoinTeamError('Будь ласка, введіть імена гравців.');
         return;
     }
 
+    const normalizedPlayers = players.map(p => p.toLowerCase());
     const uniquePlayers = new Set(normalizedPlayers);
     if (uniquePlayers.size !== players.length) {
         showJoinTeamError('Імена гравців не повинні повторюватися.');
         return;
     }
 
-    const joinCode = generateRandomPassword();
-
     try {
-        const response = await fetch('/api/teams', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                tournamentCode: code,
-                name: teamName,
-                players: players,
-                joinCode: joinCode
-            })
+        const response = await fetch(`/api/teams/${teamId}/join`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ players })
         });
 
         if (response.ok) {
             const data = await response.json();
-            await customAlert(`Команда "${data.name}" успішно зареєстрована у турнірі "${data.tournamentName}"!
-Унікальний код команди: ${data.joinCode}
-Гравці: ${data.players.join(', ')}`);
+            await customAlert(`Ви успішно приєдналися до команди!\nНові гравці: ${players.join(', ')}`);
             closeModal('joinTeamModal');
             this.reset();
             loadTeams();
             loadMatches();
         } else {
-            let errorMessage = 'Помилка при приєднанні команди.';
-            try {
-                const errorData = await response.json();
-                errorMessage = errorData.error || errorData.message || errorMessage;
-            } catch (parseError) {
-                errorMessage = `${errorMessage} Статус: ${response.status}`;
-            }
-            showJoinTeamError(errorMessage);
+            const error = await response.json();
+            showJoinTeamError(error.error || 'Помилка при приєднанні до команди');
         }
     } catch (error) {
         console.error('Помилка:', error);
-        showJoinTeamError(`Помилка при приєднанні команди: ${error.message}`);
+        showJoinTeamError(`Помилка: ${error.message}`);
     }
 });
 

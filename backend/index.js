@@ -497,6 +497,87 @@ app.delete('/api/teams/:id/player', authenticateToken, requireAdmin, (req, res) 
     });
 });
 
+app.patch('/api/teams/:id/join', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    let newPlayers = req.body.players;
+
+    if (typeof newPlayers === 'string') {
+        newPlayers = newPlayers.split(',').map(name => name.trim()).filter(Boolean);
+    }
+
+    if (!id) return res.status(400).json({ error: 'Неправильний ID команди' });
+    if (!Array.isArray(newPlayers) || newPlayers.length === 0) {
+        return res.status(400).json({ error: 'Потрібні імена гравців' });
+    }
+
+    const normalizedNewPlayers = newPlayers.map(p => String(p).trim()).filter(Boolean);
+    if (normalizedNewPlayers.length !== newPlayers.length) {
+        return res.status(400).json({ error: 'У списку не може бути порожніх значень' });
+    }
+
+    db.get('SELECT t.*, tr.players as tournament_max_players FROM teams t JOIN tournaments tr ON t.tournament_id = tr.id WHERE t.id = ?', [id], (err, team) => {
+        if (err) return res.status(500).json({ error: 'Помилка бази даних' });
+        if (!team) return res.status(404).json({ error: 'Команду не знайдено' });
+
+        let currentPlayers;
+        try {
+            currentPlayers = JSON.parse(team.players);
+        } catch (parseError) {
+            return res.status(500).json({ error: 'Некоректні дані гравців' });
+        }
+
+        if (!Array.isArray(currentPlayers)) currentPlayers = [];
+
+        const maxPlayers = parseInt(team.tournament_max_players, 10) || 1;
+        if (currentPlayers.length + normalizedNewPlayers.length > maxPlayers) {
+            return res.status(400).json({ error: `У команді не може бути більше ${maxPlayers} гравців` });
+        }
+
+        const existingLower = new Set(currentPlayers.map(p => String(p).trim().toLowerCase()));
+        const newLower = new Set(normalizedNewPlayers.map(p => p.toLowerCase()));
+
+        for (let player of normalizedNewPlayers) {
+            if (existingLower.has(player.toLowerCase())) {
+                return res.status(400).json({ error: `Гравець "${player}" вже у команді` });
+            }
+        }
+
+        if (newLower.size !== normalizedNewPlayers.length) {
+            return res.status(400).json({ error: 'Імена нових гравців не повинні повторюватися' });
+        }
+
+        db.all('SELECT players FROM teams WHERE tournament_id = ?', [team.tournament_id], (err, rows) => {
+            if (err) return res.status(500).json({ error: 'Помилка перевірки турніру' });
+
+            const tournamentPlayerNames = new Set();
+            rows.forEach(row => {
+                try {
+                    const players = JSON.parse(row.players);
+                    if (Array.isArray(players)) {
+                        players.forEach(p => {
+                            if (typeof p === 'string' && p.trim()) {
+                                tournamentPlayerNames.add(p.trim().toLowerCase());
+                            }
+                        });
+                    }
+                } catch (e) {}
+            });
+
+            for (let player of normalizedNewPlayers) {
+                if (tournamentPlayerNames.has(player.toLowerCase())) {
+                    return res.status(400).json({ error: `Гравець "${player}" вже зареєстрований у турнірі` });
+                }
+            }
+
+            const updatedPlayers = [...currentPlayers, ...normalizedNewPlayers];
+            db.run('UPDATE teams SET players = ? WHERE id = ?', [JSON.stringify(updatedPlayers), id], function(err) {
+                if (err) return res.status(500).json({ error: 'Помилка оновлення команди' });
+                res.json({ message: 'Гравців успішно додано до команди', players: updatedPlayers });
+            });
+        });
+    });
+});
+
 // Ендпоінти для матчів
 
 app.get('/api/matches', (req, res) => {
