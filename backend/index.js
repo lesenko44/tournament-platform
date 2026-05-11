@@ -439,13 +439,18 @@ app.post('/api/teams', (req, res) => {
     });
 });
 
-app.delete('/api/teams/:id', authenticateToken, requireAdmin, (req, res) => {
+app.delete('/api/teams/:id', authenticateToken, (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!id) return res.status(400).json({ error: 'Неправильний ID команди' });
 
-    db.get('SELECT * FROM teams WHERE id = ?', [id], (err, team) => {
+    db.get('SELECT t.*, tr.organizer_id FROM teams t JOIN tournaments tr ON t.tournament_id = tr.id WHERE t.id = ?', [id], (err, team) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
         if (!team) return res.status(404).json({ error: 'Команду не знайдено' });
+
+        // Admin може видалити будь-яку команду, Organizer - тільки своєї команди з його турніру
+        if (req.user.role !== 'admin' && req.user.id !== team.organizer_id) {
+            return res.status(403).json({ error: 'Немає прав для видалення цієї команди' });
+        }
 
         db.run(
             'DELETE FROM matches WHERE tournament_id = ? AND (team1 = ? OR team2 = ?)',
@@ -462,16 +467,21 @@ app.delete('/api/teams/:id', authenticateToken, requireAdmin, (req, res) => {
     });
 });
 
-app.delete('/api/teams/:id/player', authenticateToken, requireAdmin, (req, res) => {
+app.delete('/api/teams/:id/player', authenticateToken, (req, res) => {
     const id = parseInt(req.params.id, 10);
     const playerName = String(req.query.name || req.body.name || '').trim();
 
     if (!id) return res.status(400).json({ error: 'Неправильний ID команди' });
-    if (!playerName) return res.status(400).json({ error: 'Потрібне ім’я гравця' });
+    if (!playerName) return res.status(400).json({ error: "Потрібне ім'я гравця" });
 
-    db.get('SELECT * FROM teams WHERE id = ?', [id], (err, team) => {
+    db.get('SELECT t.*, tr.organizer_id FROM teams t JOIN tournaments tr ON t.tournament_id = tr.id WHERE t.id = ?', [id], (err, team) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
         if (!team) return res.status(404).json({ error: 'Команду не знайдено' });
+
+        // Admin може видалити гравця з будь-якої команди, Organizer - тільки зі своєї команди
+        if (req.user.role !== 'admin' && req.user.id !== team.organizer_id) {
+            return res.status(403).json({ error: 'Немає прав для видалення гравця з цієї команди' });
+        }
 
         let players;
         try {

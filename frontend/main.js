@@ -263,6 +263,9 @@ async function loadTeams() {
 
         placeholder.textContent = '';
         const isAdmin = currentUser?.role === 'admin';
+        
+        console.log('Current User:', currentUser);
+        console.log('Is Admin:', isAdmin);
 
         teams.forEach(team => {
             const card = document.createElement('div');
@@ -1007,7 +1010,8 @@ async function deleteTournament(id) {
         
         if (response.ok) {
             await customAlert('Турнір видалено!');
-            loadTournaments();
+            await loadTournaments();
+            await loadTeams();
         } else {
             const error = await response.json();
             await customAlert(error.error || 'Помилка видалення турніру');
