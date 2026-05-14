@@ -261,7 +261,7 @@ async function loadTeams() {
         placeholder.textContent = '';
 
         teams.forEach(team => {
-            const canModifyTeam = currentUser && (currentUser.role === 'admin' || (currentUser.role === 'organizer' && currentUser.id === team.tournamentOrganizerId));
+            const canModifyTeam = currentUser && (currentUser.role === 'admin' || (currentUser.role === 'organizer' && String(currentUser.id) === String(team.tournamentOrganizerId)));
             const card = document.createElement('div');
             card.className = 'col-md-4';
 
@@ -492,7 +492,7 @@ function renderMatches() {
         };
         
         const status = statusMap[match.status] || { text: match.status, class: 'scheduled' };
-        const canEdit = currentUser && (currentUser.role === 'admin' || match.organizer_id === currentUser.id);
+        const canEdit = currentUser && (currentUser.role === 'admin' || String(match.organizer_id) === String(currentUser.id));
 
         matchDiv.innerHTML = `
             <div class="match-header">
@@ -915,7 +915,7 @@ async function loadTournaments() {
         data.forEach(tournament => {
             const badge = tournament.status || 'Реєстрація';
             const badgeClass = badge === 'LIVE' ? 'bg-danger' : badge === 'Фінал' ? 'bg-success' : 'bg-warning text-dark';
-            const canDelete = currentUser && (currentUser.role === 'admin' || currentUser.id === tournament.organizer_id);
+            const canDelete = currentUser && (currentUser.role === 'admin' || String(currentUser.id) === String(tournament.organizer_id));
             
             const card = document.createElement('div');
             card.className = 'col-md-4';
