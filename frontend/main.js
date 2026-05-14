@@ -13,6 +13,7 @@ function clearToken() {
     currentUser = null;
     localStorage.removeItem('token');
     updateCreateTournamentAuthState();
+    loadTournaments();
 }
 
 function getAuthHeaders() {
@@ -90,8 +91,6 @@ async function checkAuth() {
 
         const payload = JSON.parse(decodeBase64Url(parts[1]));
         currentUser = payload;
-        currentUserId = payload.id;
-        currentUserRole = payload.role;
         updateAuthUI();
         updateCreateTournamentAuthState();
     } catch (error) {
@@ -190,8 +189,6 @@ function customConfirm(message) {
 let tournaments = [];
 let teams = [];
 let matches = [];
-let currentUserId = 1; // За замовчуванням ID організатора
-let currentUserRole = 'user'; // Поточний користувач може бути 'admin', 'organizer' або 'user'
 
 function generateRandomPassword() {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -262,12 +259,9 @@ async function loadTeams() {
         }
 
         placeholder.textContent = '';
-        const isAdmin = currentUser?.role === 'admin';
-        
-        console.log('Current User:', currentUser);
-        console.log('Is Admin:', isAdmin);
 
         teams.forEach(team => {
+            const canModifyTeam = currentUser && (currentUser.role === 'admin' || (currentUser.role === 'organizer' && currentUser.id === team.tournamentOrganizerId));
             const card = document.createElement('div');
             card.className = 'col-md-4';
 
@@ -275,7 +269,7 @@ async function loadTeams() {
                 ? team.players.map(player => `
                     <div class="player-entry">
                         <span>${player}</span>
-                        ${isAdmin ? `<button class="btn-remove-player" data-team-id="${team.id}" data-player="${encodeURIComponent(player)}" type="button" aria-label="Видалити гравця ${player}">✕</button>` : ''}
+                        ${canModifyTeam ? `<button class="btn-remove-player" data-team-id="${team.id}" data-player="${encodeURIComponent(player)}" type="button" aria-label="Видалити гравця ${player}">✕</button>` : ''}
                     </div>
                 `).join('')
                 : '<div class="player-entry">Немає гравців</div>';
@@ -284,7 +278,7 @@ async function loadTeams() {
                 <div class="tournament-card">
                     <div class="tournament-header">
                         <span class="badge bg-success mb-2">Команда</span>
-                        ${isAdmin ? `<button class="btn-delete btn-delete-team" data-id="${team.id}" type="button" title="Видалити команду">✕</button>` : ''}
+                        ${canModifyTeam ? `<button class="btn-delete btn-delete-team" data-id="${team.id}" type="button" title="Видалити команду">✕</button>` : ''}
                     </div>
                     <h4>${team.name}</h4>
                     <p><strong>Турнір:</strong> ${team.tournamentName}</p>
@@ -295,7 +289,7 @@ async function loadTeams() {
 
             container.appendChild(card);
 
-            if (isAdmin) {
+            if (canModifyTeam) {
                 const deleteBtn = card.querySelector('.btn-delete-team');
                 if (deleteBtn) {
                     deleteBtn.addEventListener('click', async () => {
@@ -808,6 +802,7 @@ if (loginForm) {
                 setToken(data.token);
                 currentUser = data.user;
                 updateAuthUI();
+                await loadTournaments();
                 loadTeams();
                 closeModal('loginModal');
                 this.reset();
@@ -847,6 +842,7 @@ if (registerForm) {
                 setToken(data.token);
                 currentUser = data.user;
                 updateAuthUI();
+                await loadTournaments();
                 loadTeams();
                 closeModal('loginModal');
                 this.reset();
@@ -1012,6 +1008,7 @@ async function deleteTournament(id) {
             await customAlert('Турнір видалено!');
             await loadTournaments();
             await loadTeams();
+            await loadMatches();
         } else {
             const error = await response.json();
             await customAlert(error.error || 'Помилка видалення турніру');
@@ -1111,8 +1108,9 @@ document.getElementById('createTournamentForm').addEventListener('submit', async
             
             closeModal('createTournamentModal');
             this.reset();
-            loadTournaments();
-            loadMatches();
+            await loadTournaments();
+            await loadMatches();
+            await loadTeams();
         } else {
             const error = await response.json();
             await customAlert(error.error || 'Помилка створення турніру');

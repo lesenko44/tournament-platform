@@ -317,7 +317,7 @@ app.post('/api/tournaments', authenticateToken, (req, res) => {
 
 app.get('/api/teams', (req, res) => {
     db.all(`
-        SELECT t.*, tr.name as tournamentName, tr.code as tournamentCode
+        SELECT t.*, tr.name as tournamentName, tr.code as tournamentCode, tr.organizer_id as tournamentOrganizerId
         FROM teams t
         JOIN tournaments tr ON t.tournament_id = tr.id
         ORDER BY t.id DESC
@@ -329,7 +329,8 @@ app.get('/api/teams', (req, res) => {
             players: JSON.parse(team.players),
             tournamentId: team.tournament_id,
             tournamentName: team.tournamentName,
-            tournamentCode: team.tournamentCode
+            tournamentCode: team.tournamentCode,
+            tournamentOrganizerId: team.tournamentOrganizerId
         })));
     });
 });

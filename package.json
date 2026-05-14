@@ -1,5 +1,15 @@
 {
+  "name": "tournament-api",
+  "version": "1.0.0",
+  "description": "Tournament management API and frontend",
+  "main": "backend/index.js",
+  "scripts": {
+    "start": "node backend/index.js"
+  },
   "dependencies": {
-    "git": "^0.1.5"
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.6"
   }
 }
