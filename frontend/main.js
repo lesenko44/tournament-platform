@@ -737,40 +737,6 @@ async function renderWatchContent(tournament) {
     watchContent.innerHTML = html;
 }
 
-async function populateAvailableTeams() {
-    const select = document.getElementById('availableTeamsSelect');
-    if (!select) return;
-
-    const tournamentsRes = await fetch('/api/tournaments').catch(() => null);
-    const tournamentsData = tournamentsRes && tournamentsRes.ok ? await tournamentsRes.json() : [];
-
-    const availableTeams = teams.filter(team => {
-        const tournament = tournamentsData.find(t => t.id === team.tournamentId);
-        if (!tournament) return false;
-        const maxPlayers = parseInt(tournament.players, 10) || 1;
-        return team.players.length < maxPlayers;
-    });
-
-    if (availableTeams.length === 0) {
-        select.innerHTML = '<option value="" disabled>Немає команд з вільними місцями</option>';
-        return;
-    }
-
-    select.innerHTML = availableTeams
-        .map(team => {
-            const tournament = tournamentsData.find(t => t.id === team.tournamentId);
-            const maxPlayers = parseInt(tournament?.players, 10) || 1;
-            const freeSpots = maxPlayers - team.players.length;
-            return `<option value="${team.id}" data-free-spots="${freeSpots}">📋 ${team.name} (${team.players.length}/${maxPlayers}) - ${freeSpots} вільних місць</option>`;
-        })
-        .join('');
-}
-
-const joinTeamModalEl = document.getElementById('joinTeamModal');
-if (joinTeamModalEl) {
-    joinTeamModalEl.addEventListener('show.bs.modal', populateAvailableTeams);
-}
-
 function showJoinTeamError(message) {
     const errorDiv = document.getElementById('joinTeamError');
     errorDiv.textContent = message;
@@ -820,10 +786,15 @@ const registerForm = document.getElementById('registerForm');
 if (registerForm) {
     registerForm.addEventListener('submit', async function(event) {
         event.preventDefault();
-        const name = document.getElementById('registerName').value;
-        const email = document.getElementById('registerEmail').value;
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
         const password = document.getElementById('registerPassword').value;
         const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+        if (!name || !email || !password || !confirmPassword) {
+            await customAlert('Будь ласка, заповніть всі поля.');
+            return;
+        }
 
         if (password !== confirmPassword) {
             await customAlert('Паролі не співпадають!');
@@ -848,6 +819,7 @@ if (registerForm) {
                 this.reset();
                 await customAlert(`Реєстрація успішна, ${data.user.username}!`);
             } else {
+                console.error('Register failed:', data);
                 await customAlert(data.error || 'Помилка реєстрації');
             }
         } catch (error) {
@@ -938,13 +910,12 @@ async function loadTournaments() {
             const joinBtn = card.querySelector('.btn-join');
             if (joinBtn) {
                 joinBtn.addEventListener('click', () => {
-                    hideJoinTeamError();
+                    hideJoinTournamentError();
                     const select = document.getElementById('joinTournamentSelect');
                     if (select) {
                         select.value = tournament.id;
                     }
-                    document.getElementById('tournamentCode').value = tournament.code || '';
-                    const joinModal = new bootstrap.Modal(document.getElementById('joinTeamModal'));
+                    const joinModal = new bootstrap.Modal(document.getElementById('joinTournamentModal'));
                     joinModal.show();
                 });
             }
@@ -988,7 +959,8 @@ if (joinTournamentSelect) {
     joinTournamentSelect.addEventListener('change', function() {
         const selectedOption = this.options[this.selectedIndex];
         const code = selectedOption?.dataset?.code || '';
-        document.getElementById('tournamentCode').value = code;
+        // tournamentCode field is not present in the join team form anymore
+        // so we keep the selected tournament id only
     });
 }
 
@@ -1122,6 +1094,8 @@ document.getElementById('createTournamentForm').addEventListener('submit', async
 });
 
 
+let availableTeamsCache = [];
+
 async function populateAvailableTeams() {
     const select = document.getElementById('availableTeamsSelect');
     if (!select) return;
@@ -1133,22 +1107,84 @@ async function populateAvailableTeams() {
         if (!tournament) return false;
         const maxPlayers = parseInt(tournament.players, 10) || 1;
         return team.players.length < maxPlayers;
+    }).map(team => {
+        const tournament = tournaments.find(t => t.id === team.tournamentId);
+        const maxPlayers = parseInt(tournament?.players, 10) || 1;
+        const freeSpots = maxPlayers - team.players.length;
+        return {
+            id: team.id,
+            name: team.name,
+            players: team.players,
+            tournamentName: tournament?.name || 'Невідомий турнір',
+            tournamentCode: tournament?.code || 'N/A',
+            tournamentPlayers: maxPlayers,
+            freeSpots,
+            currentPlayers: team.players.length
+        };
     });
 
+    availableTeamsCache = availableTeams;
+
+    const noTeamsOption = '<option value="" disabled selected>Немає команд з вільними місцями</option>';
+    const placeholderOption = '<option value="" disabled selected>Оберіть команду...</option>';
+
     if (availableTeams.length === 0) {
-        select.innerHTML = '<option value="" disabled>Немає команд з вільними місцями</option>';
+        select.innerHTML = noTeamsOption;
+        updateSelectedTeamInfo();
         return;
     }
 
-    select.innerHTML = availableTeams
-        .map(team => {
-            const tournament = tournaments.find(t => t.id === team.tournamentId);
-            const maxPlayers = parseInt(tournament?.players, 10) || 1;
-            const freeSpots = maxPlayers - team.players.length;
-            return `<option value="${team.id}" data-free-spots="${freeSpots}">📍 ${team.name} (${team.players.length}/${maxPlayers}) - ${freeSpots} вільних місць</option>`;
-        })
+    select.innerHTML = placeholderOption + availableTeams
+        .map(team => `<option value="${team.id}" data-team-name="${team.name}" data-tournament-name="${team.tournamentName}" data-tournament-code="${team.tournamentCode}" data-current-players="${team.currentPlayers}" data-max-players="${team.tournamentPlayers}" data-player-list="${encodeURIComponent(JSON.stringify(team.players))}">📍 ${team.name} (${team.currentPlayers}/${team.tournamentPlayers}) - ${team.freeSpots} вільних місцями</option>`)
         .join('');
+
+    select.value = availableTeams[0].id;
+    updateSelectedTeamInfo();
 }
+
+function updateSelectedTeamInfo() {
+    const select = document.getElementById('availableTeamsSelect');
+    const info = document.getElementById('selectedTeamInfo');
+    const nameEl = document.getElementById('selectedTeamName');
+    const tournamentEl = document.getElementById('selectedTeamTournament');
+    const codeEl = document.getElementById('selectedTeamCode');
+    const countEl = document.getElementById('selectedTeamPlayersCount');
+    const listEl = document.getElementById('selectedTeamPlayersList');
+
+    if (!select || !info || !nameEl || !tournamentEl || !codeEl || !countEl || !listEl) return;
+
+    const selectedOption = select.options[select.selectedIndex];
+    if (!selectedOption || !selectedOption.value) {
+        info.classList.add('d-none');
+        return;
+    }
+
+    const teamName = selectedOption.dataset.teamName || 'Невідома команда';
+    const tournamentName = selectedOption.dataset.tournamentName || 'Невідомий турнір';
+    const tournamentCode = selectedOption.dataset.tournamentCode || 'N/A';
+    const currentPlayers = selectedOption.dataset.currentPlayers || '0';
+    const maxPlayers = selectedOption.dataset.maxPlayers || '0';
+    const players = selectedOption.dataset.playerList ? JSON.parse(decodeURIComponent(selectedOption.dataset.playerList)) : [];
+
+    nameEl.textContent = teamName;
+    tournamentEl.textContent = tournamentName;
+    codeEl.textContent = tournamentCode;
+    countEl.textContent = `${currentPlayers}/${maxPlayers}`;
+    listEl.textContent = players.length ? players.join(', ') : 'Поки що немає гравців';
+    info.classList.remove('d-none');
+}
+
+document.getElementById('availableTeamsSelect')?.addEventListener('change', updateSelectedTeamInfo);
+
+const joinTeamModalEl = document.getElementById('joinTeamModal');
+if (joinTeamModalEl) {
+    joinTeamModalEl.addEventListener('show.bs.modal', populateAvailableTeams);
+}
+
+const joinTeamButtons = document.querySelectorAll('[data-bs-target="#joinTeamModal"]');
+joinTeamButtons.forEach(button => {
+    button.addEventListener('click', populateAvailableTeams);
+});
 
 document.getElementById('joinTeamForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -1199,6 +1235,68 @@ document.getElementById('joinTeamForm').addEventListener('submit', async functio
     }
 });
 
+document.getElementById('joinTournamentForm')?.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    hideJoinTournamentError();
+
+    const tournamentId = parseInt(document.getElementById('joinTournamentSelect').value, 10);
+    const teamName = document.getElementById('joinTeamName').value.trim();
+    const playersText = document.getElementById('joinTournamentPlayerNames').value.trim();
+    const players = playersText.split(',').map(name => name.trim()).filter(Boolean);
+
+    if (!tournamentId) {
+        showJoinTournamentError('Будь ласка, оберіть турнір.');
+        return;
+    }
+    if (!teamName) {
+        showJoinTournamentError('Будь ласка, введіть назву команди.');
+        return;
+    }
+    if (players.length === 0) {
+        showJoinTournamentError('Будь ласка, введіть імена гравців.');
+        return;
+    }
+
+    try {
+        const selectedOption = document.getElementById('joinTournamentSelect').options[document.getElementById('joinTournamentSelect').selectedIndex];
+        const tournamentCode = selectedOption?.dataset?.code || '';
+
+        const response = await fetch('/api/teams', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tournamentCode, name: teamName, players })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            await customAlert(`Команда "${teamName}" успішно зареєстрована у турнірі!`);
+            closeModal('joinTournamentModal');
+            this.reset();
+            loadTeams();
+            loadMatches();
+        } else {
+            const error = await response.json();
+            showJoinTournamentError(error.error || 'Помилка при приєднанні до турніру');
+        }
+    } catch (error) {
+        console.error('Помилка:', error);
+        showJoinTournamentError(`Помилка: ${error.message}`);
+    }
+});
+
+function showJoinTournamentError(message) {
+    const errorDiv = document.getElementById('joinTournamentError');
+    if (!errorDiv) return;
+    errorDiv.textContent = message;
+    errorDiv.classList.remove('d-none');
+}
+
+function hideJoinTournamentError() {
+    const errorDiv = document.getElementById('joinTournamentError');
+    if (!errorDiv) return;
+    errorDiv.textContent = '';
+    errorDiv.classList.add('d-none');
+}
 
 function setupIncrementDecrement(buttonId, inputId, minValue) {
     const button = document.getElementById(buttonId);

@@ -254,12 +254,54 @@
                             </select>
                             <div class="form-text text-white-50">Показуються тільки команди з вільними місцями</div>
                         </div>
+                        <div id="selectedTeamInfo" class="mb-3 d-none">
+                            <div class="card card-body bg-dark border-secondary text-white">
+                                <p class="mb-2"><strong>Команда:</strong> <span id="selectedTeamName"></span></p>
+                                <p class="mb-2"><strong>Турнір:</strong> <span id="selectedTeamTournament"></span></p>
+                                <p class="mb-2"><strong>Код турніру:</strong> <span id="selectedTeamCode"></span></p>
+                                <p class="mb-2"><strong>Гравців у команді:</strong> <span id="selectedTeamPlayersCount"></span></p>
+                                <p class="mb-0"><strong>Імена гравців:</strong> <span id="selectedTeamPlayersList"></span></p>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="joinPlayerNames" class="form-label">Імена нових гравців</label>
                             <textarea class="form-control" id="joinPlayerNames" rows="3" placeholder="Введіть імена гравців через кому" required></textarea>
                             <div class="form-text text-white-50">Введіть стільки гравців, скільки вільних місць у команді</div>
                         </div>
                         <button type="submit" class="btn btn-blue">Приєднатися до команди</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="joinTournamentModal" tabindex="-1" aria-labelledby="joinTournamentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joinTournamentModalLabel">Приєднатися до Турніру</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="joinTournamentForm">
+                        <div class="alert alert-danger d-none" id="joinTournamentError" role="alert"></div>
+                        <div class="mb-3">
+                            <label for="joinTournamentSelect" class="form-label">Оберіть турнір</label>
+                            <select id="joinTournamentSelect" class="form-select" required>
+                                <option value="" selected disabled>Завантаження турнірів...</option>
+                            </select>
+                            <div class="form-text text-white-50">Оберіть турнір, до якого хочете приєднатися.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="joinTeamName" class="form-label">Назва команди</label>
+                            <input type="text" class="form-control" id="joinTeamName" placeholder="Введіть назву команди" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="joinTournamentPlayerNames" class="form-label">Імена гравців</label>
+                            <textarea class="form-control" id="joinTournamentPlayerNames" rows="3" placeholder="Введіть імена гравців через кому" required></textarea>
+                            <div class="form-text text-white-50">Введіть імена гравців для нової команди.</div>
+                        </div>
+                        <button type="submit" class="btn btn-blue">Приєднатися до турніру</button>
                     </form>
                 </div>
             </div>
